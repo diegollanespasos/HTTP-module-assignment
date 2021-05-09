@@ -1,0 +1,20 @@
+{
+  "name": "http-module-assignment",
+  "version": "1.0.0",
+  "description": "Assignment about an API using HTTP Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "HTTP",
+    "Module"
+  ],
+  "author": "Diego Llanes",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
