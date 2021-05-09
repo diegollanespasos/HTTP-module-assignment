@@ -9,11 +9,11 @@ const notFound = (req, res) => {
 }
 
 const reset = (req, res) => {
-    if(req.method === 'DELETE' && req.url === '/reset'){
+    if(req.method === 'DELETE'){
         const numberJSON = fs.readFileSync('./public/data.txt', 'utf-8');
         const myNumber = JSON.parse(numberJSON).myNumber;
 
-        if(myNumber !== null){
+        if(myNumber !== null && req.url === '/reset'){
             fs.writeFileSync('./public/data.txt', JSON.stringify({
                 myNumber : null
             }));
@@ -28,7 +28,7 @@ const reset = (req, res) => {
 
     res.statusCode = 400;
     return res.end(JSON.stringify({
-        message: 'Bad Request, use the correct method'
+        message: 'Bad Request'
     }))
 }
 
@@ -40,17 +40,21 @@ const myNumber = (req, res) => {
 
             if(req.url === '/myNumber') return getMyNumber(req, res);
 
-            if(isNumberRegex.test(uriParam)) return getMyNumberMultiplied(req, res, uriParam);
+            if(isNumberRegex.test(uriParam)) getMyNumberMultiplied(req, res, uriParam);
 
-            notFound(req, res);   
+            else notFound(req, res);   
         break;
 
         case 'POST':
-            postMyNumber(req, res);
+            if(req.url === '/myNumber') postMyNumber(req, res);
+
+            else notFound(req, res);
         break;
 
         case 'PUT':
-            putMyNumber(req, res);
+            if(req.url === '/myNumber') putMyNumber(req, res);
+
+            else notFound(req, res);
         break;
 
         default: 
